@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:body>
+	<ui:composition template="/WEB-INF/includes/template.xhtml">
+		<ui:define name="menu">
+			<ui:include src="/WEB-INF/includes/menu.xhtml" />
+		</ui:define>
+		<ui:define name="main_box">
+			<h:form id="customersform">
+				<p:growl id="growl" life="2000" />
+
+				<p:panel header="All customers in the application" />
+
+				<p:dataTable id="customersTable" var="customer"
+					value="#{kundenBean.dataModel}" paginator="true" rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					resizableColumns="true" rowsPerPageTemplate="5,10,15"
+					selection="#{kundenBean.selektierterKunde}" selectionMode="single"
+					rowKey="#{customer.id}" lazy="true">
+
+				<!-- 
+				@ see
+				https://www.mkyong.com/jsf2/how-to-pass-new-hidden-value-to-backing-bean-in-jsf/
+				-->
+ 					<p:ajax event="rowSelect" listener="#{kundenBean.onRowSelect}" 
+ 					        update = "customersform:selectedCustomerId"
+ 					        oncomplete="showCustomerImage();" />
+ 					        
+ 					<p:ajax event="rowDblselect" listener="#{kundenBean.onRowDblClick}" />
+       
+					<p:column headerText="Customer's Name" style="width:332px;text-align:center"
+						sortBy="#{customer.vorname}" filterBy="#{customer.vorname}">
+						<h:outputText value="#{customer.vorname}" />
+					</p:column>
+					<p:column headerText="Customer's Address" sortBy="#{customer.adresse}"
+						filterBy="#{customer.adresse}">
+						<h:outputText value="#{customer.adresse}" />
+					</p:column>
+				</p:dataTable>
+				<!-- @see https://stackoverflow.com/questions/19548838/updating-entire-pdatatable-on-complete-of-pajax-event-celledit  -->
+				<h:inputHidden id="selectedCustomerId" value= "#{kundenBean.selectedCustId}" />
+				
+				<!-- The value of the pathToImageId is delivered in the response of an ajax request to the the ImageReadServlet -->
+				<h:inputHidden id="pathToImageId" value= "" />
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

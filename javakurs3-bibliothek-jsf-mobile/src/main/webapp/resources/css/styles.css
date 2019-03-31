@@ -1,0 +1,79 @@
+/** Resources:
+	1.) CSS  dropdown easy tutorial:
+	https://www.w3schools.com/css/css_dropdowns.asp
+	
+	2.) center a css dropdown:
+	http://stackoverflow.com/questions/29979355/how-do-i-align-my-css-drop-down-menu-in-the-center
+**/
+
+.dropdownmenu {
+	padding-top: 1em;
+	padding-bottom: 5em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.dropdownmenu ul {
+	/**
+	** margin vs. padding, @see https://stackoverflow.com/questions/2189452/when-to-use-margin-vs-padding-in-css
+	**/
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-align: center;
+}
+
+.dropdownmenu ul li {
+	position: relative;
+	display: inline-block;
+    width: 200px;
+    line-height: 30px;
+	
+	font-weight: bold;
+	font-size: 16px;
+	font-family: Arial, Helvetica;
+
+	/**	-- below properties are taken from prime faces datatable css **/
+  /*	padding: 4px 10px;
+  	overflow: hidden; **/
+    border-width: 1px;
+    border-style: solid;
+    background-color: rgba(194,194,194,.5);
+}
+
+.dropdownmenu ul li.topmenu a {
+	display: block;
+	text-decoration: none;
+}
+
+.dropdownmenu ul li.topmenu a:hover {
+	background-color: #AACADB;
+}
+
+.dropdownmenu .topmenu ul {
+	position: absolute;	
+	top: 100%;
+    left: 50%;
+    margin-left: -101px; /** for negative margins, see http://stackoverflow.com/questions/11495200/how-do-negative-margins-in-css-work-and-why-is-margin-top-5-margin-bottom5 **/
+    display: none;
+}
+
+.dropdownmenu ul li:hover ul {
+	display: block;
+}
+
+
+/** footer **/
+
+#footer {
+	padding-top: 2em;
+	position: relative;
+    clear: both; /** clear is needed because of the preceeding float, @see https://www.w3schools.com/css/css_float.asp **/
+}
+
+#footer p {
+	text-align: center;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Arial, Helvetica;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:body>
+	<ui:composition template="/WEB-INF/includes/template.xhtml">
+		<ui:define name="menu">
+			<ui:include src="/WEB-INF/includes/menu.xhtml" />
+		</ui:define>
+		<ui:define name="main_box">
+			<h:form id="rentsform">
+				<p:growl id="growl" life="2000" />
+
+				<p:panel header="Rents of customer #{rentsBean.rentsOfCustomer}"/>
+
+				<p:dataTable id="rentsTable" var="rent"
+					value="#{rentsBean.dataModel}" paginator="true" rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					resizableColumns="true" rowsPerPageTemplate="5,10,15"
+					selection="#{rentsBean.selectedRent}" selectionMode="single"
+					rowKey="#{rent.id}" lazy="true">
+					
+					
+					<p:ajax event="rowDblselect" listener="#{rentsBean.onRowDblClick}" />
+
+					<p:column headerText="Cash Note" style="width:332px;text-align:center"
+						sortBy="#{rent.kassaZettelNummer}" filterBy="#{rent.kassaZettelNummer}">
+						<h:outputText value="#{rent.kassaZettelNummer}" />
+					</p:column>
+					<p:column headerText="Rented On" sortBy="#{rent.rentedOn}"
+						filterBy="#{rent.rentedOn}">
+						<h:outputText value="#{rent.rentedOn}" />
+					</p:column>
+					<p:column headerText="Amount Due" sortBy="#{rent.betragzuZahlen}"
+						filterBy="#{rent.billAmount}">
+						<h:outputText value="#{rent.billAmount}" />
+					</p:column>
+					<p:column headerText="Closed" sortBy="#{rent.abgeschlossen}"
+						filterBy="#{rent.abgeschlossen}">
+						<h:outputText value="#{rent.abgeschlossen}" />
+					</p:column>
+				</p:dataTable>
+				
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
