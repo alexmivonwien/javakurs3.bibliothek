@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:body>
+	<ui:composition template="/WEB-INF/includes/template.xhtml">
+		<ui:define name="menu">
+			<ui:include src="/WEB-INF/includes/menu.xhtml" />
+		</ui:define>
+		<ui:define name="main_box">
+			<script>
+				// we need to execute the js init() function after the page load:
+				// @see https://stackoverflow.com/questions/8996316/how-to-execute-javascript-after-page-load
+				jQuery(document).ready(function() {
+					jQuery(document).ready(function() {
+						// twice in document.ready to execute after Primefaces callbacks
+						// init();
+					});
+				});
+			</script>
+			<p:growl id="growl" life="2000" />
+			<p:panel header="Create a new customer">
+				<p:layout style="min-width:400px;min-height:500px;">
+					<p:layoutUnit position="west" resizable="true" size="500"
+						minSize="500" maxSize="700">
+						<h:form id="newCustomerformId">
+							<h:panelGrid id="panel" columns="2" border="1" cellpadding="10"
+								cellspacing="1">
+								<p:outputLabel for="kundeTypId" value="Kunde Typ:" />
+								<p:selectOneMenu id="kundeTypId"
+									value="#{newCustomerBean.custmerType}" style="width:150px">
+									<!-- 
+				@see https://stackoverflow.com/questions/24405320/field-required-depending-on-the-value-of-an-other-field-with-jsf2-pf4
+				@see https://stackoverflow.com/questions/14537567/primefaces-dependent-selectonemenu-and-required-true?rq=1
+				
+				"instead of using execute and render attributes associated with f:ajax to indicate which components should be executed and rendered respectively, 
+				 you should use process and update attributes associated this time with p:ajax component"
+				 
+				 @see https://www.journaldev.com/3291/primefaces-ajaxbehavior-and-ajaxexceptionhandler-component-example-tutorial
+				 -->
+									<p:ajax event="change" update="@this newCustomerformId"
+										process="@this newCustomerformId" />
+									<f:selectItem itemLabel="Kunde auswählen" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItems value="#{newCustomerBean.custmerTypes}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel id="vornameLabelId" for="vornameId"
+									value="#{newCustomerBean.custmerType eq 'TYP_NATPERS' ? 'Vorname' : 'Name'}"
+									rendered="#{newCustomerBean.custmerType eq 'TYP_NATPERS' or newCustomerBean.custmerType eq 'TYP_FIRMA'}" />
+								<p:inputText id="vornameId" value="#{newCustomerBean.vorname}"
+									rendered="#{newCustomerBean.custmerType eq 'TYP_NATPERS' or newCustomerBean.custmerType eq 'TYP_FIRMA'}"
+									maxlength="25" size="20" />
+
+								<p:outputLabel id="nachnameLabelId" for="nachnameId"
+									value="Nachname"
+									rendered="#{newCustomerBean.custmerType eq 'TYP_NATPERS'}" />
+								<p:inputText id="nachnameId" value="#{newCustomerBean.nachname}"
+									rendered="#{newCustomerBean.custmerType eq 'TYP_NATPERS'}"
+									maxlength="25" size="20" />
+
+								<p:outputLabel id="addresseLabelId" for="addresseId"
+									value="Addresse"
+									rendered="#{not empty newCustomerBean.custmerType}" />
+								<p:inputText id="addresseId" value="#{newCustomerBean.addresse}"
+									rendered="#{not empty newCustomerBean.custmerType}"
+									maxlength="25" size="20" />
+
+								<p:outputLabel id="steuerNummerLabelId" for="steuerNummerId"
+									value="Steuer Nummer"
+									rendered="#{newCustomerBean.custmerType eq 'TYP_FIRMA'}" />
+
+								<p:inputText id="steuerNummerId"
+									value="#{newCustomerBean.steuerNummer}" validatorMessage="Bitte für Steuernummer nur Ziffern  eingeben!"
+									rendered="#{newCustomerBean.custmerType eq 'TYP_FIRMA'}">
+									<f:validateRegex pattern="\d*(.\d+)?" />
+								</p:inputText>
+
+								<p:outputLabel id="gebDatumLabelId" for="gebDatumId"
+									value="Geburtsdatum"
+									rendered="#{newCustomerBean.custmerType eq 'TYP_NATPERS'}" />
+								<p:calendar id="gebDatumId" value="#{newCustomerBean.gebDatum}"
+									locale="en" navigator="true" pattern="yyyy-MMM-dd"
+									rendered="#{newCustomerBean.custmerType eq 'TYP_NATPERS'}"
+									maxlength="25" size="20" />
+							</h:panelGrid>
+							<p:commandButton type="submit" value="Create Customer"
+								icon="ui-icon-check"
+								action="#{newCustomerBean.saveNewCustomer}"/>
+								
+						</h:form>
+
+						<p:spacer height="10" />
+						<p:separator />
+						<p:messages id="messages" showDetail="true" autoUpdate="true"/>
+					</p:layoutUnit>
+					<p:layoutUnit position="center">
+						<!--  here an image upload area will appear -->
+					</p:layoutUnit>
+				</p:layout>
+			</p:panel>
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
