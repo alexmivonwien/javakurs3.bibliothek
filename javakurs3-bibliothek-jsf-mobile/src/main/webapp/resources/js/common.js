@@ -1,6 +1,17 @@
- var fileList = []; // an array of objects representing all the files in the HTML table and a comment to each file
- var selectedRows = []; // the indexes of the selected rows from the HTML files table
+ 
+/** Zum Datei Upload mit HTML5 sieh https://wiki.selfhtml.org/wiki/JavaScript/File_Upload#Auswahl_mit_Drag_und_Drop **/
+
+var fileList = []; // an array of objects representing all the files in the HTML table and a comment to each file
+var selectedRows = []; // the indexes of the selected rows from the HTML files table
       
+/**
+ * 
+ * @sieh https://wiki.selfhtml.org/wiki/JavaScript/File_Upload#Auswahl_mit_Drag_und_Drop
+ * 
+ * 
+ * @param evt
+ * @returns
+ */
 function dateiauswahl(evt) {
 	evt.stopPropagation();
 	evt.preventDefault();
