@@ -88,6 +88,25 @@ public class KundeDBService {
 
 		return result;
 	}
+	
+	public int getKundeCount(Map<String, Object> filters) {
+
+		List<Integer> result = new ArrayList<>();
+		
+		LoadKundeParametersHelper kundeParametersHelper = new LoadKundeParametersHelper();
+		kundeParametersHelper.setFilters(filters);
+
+		 String QUERY_BEGIN = " select k from Kunde k ";
+		
+		if (kundeParametersHelper.getFilters().size() > 0) {
+			QUERY_BEGIN += kundeParametersHelper.addFiltersToQuery();
+		}
+		Query emQuery = em.createQuery(QUERY_BEGIN);
+		result = (List<Integer>) emQuery.getResultList();
+		
+		return result.size() > 0 ? result.get(0) : 0;
+
+	}
 
 	public List<? extends Kunde> load(int first, int pageSize, String sortField, SortOrder sortOrder,
 			Map<String, Object> filters) {

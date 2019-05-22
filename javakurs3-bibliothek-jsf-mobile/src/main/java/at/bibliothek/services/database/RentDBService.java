@@ -70,6 +70,22 @@ public class RentDBService {
 	}
 	
 	
+	public int getRentsCount( Map<String, Object> filters, Long custId) {
+
+		if (custId !=null){
+			filters.put("kunde.id", custId);
+		}
+		
+		String queryString =  " select count (*) from Rent r " + composeWhereClause(filters);
+
+		Query loadQuery = em.createQuery( queryString );
+		List<Integer> result  = loadQuery.getResultList();
+		
+		return result.size() > 0 ? result.get(0) : 0;
+	}
+
+	
+	
 	public List<Rent> lazyLoadRents(int first, int pageSize, String sortField, SortOrder sortOrder,
 			Map<String, Object> filters, Long custId) {
 		

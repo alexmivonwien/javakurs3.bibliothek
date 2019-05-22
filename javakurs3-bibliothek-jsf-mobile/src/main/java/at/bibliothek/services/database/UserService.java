@@ -107,13 +107,6 @@ public class UserService {
 		return result;
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	//@Override
-	public List<User> getAllUsers() {
-		Query query = this.em.createQuery(" from User u");
-		return query.getResultList();
-	}
-
 	//@Override
 	public User findByUsernameOrEmail (String username, String email)
 	{
