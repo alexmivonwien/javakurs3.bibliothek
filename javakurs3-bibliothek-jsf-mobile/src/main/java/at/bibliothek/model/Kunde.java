@@ -22,7 +22,7 @@ public abstract class Kunde {
 	@Column(name = "id", updatable = false, nullable = false)
 	private int id;
 
-	@Column
+	@Column(name = "name")
 	protected String vorname;
 	
 	@Column (name = "adress")

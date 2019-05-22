@@ -36,7 +36,6 @@ public class KundenBean {
 
 	private LazyKundeDataModel dataModel;
 
-	private List<? extends Kunde> allKundenList;
 	private Kunde selektierterKunde;
 	private int selectedCustId;
 	
@@ -48,23 +47,6 @@ public class KundenBean {
 	@PostConstruct
 	private void init() {
 		this.dataModel = new LazyKundeDataModel(kundenDBService);
-	}
-
-	public List<? extends Kunde> getAllKundenList() throws ApplicationException {
-		if (allKundenList == null) {
-			try {
-				allKundenList = kundenDBService.findAllKunden("");
-			} catch (ServiceException se) {
-				logger.error(se.getMessage(), se);
-				throw new ApplicationException(se.getMessage(), se);
-			}
-		}
-
-		return allKundenList;
-	}
-
-	public void setAllKundenList(List<Kunde> kundenList) {
-		this.allKundenList = kundenList;
 	}
 
 	public LazyKundeDataModel getDataModel() {
