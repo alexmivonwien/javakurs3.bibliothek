@@ -37,6 +37,18 @@ public class RentDBService {
 
 	private Logger logger = Logger.getLogger(RentDBService.class.getName());
 
+	
+	/**
+	 * This method is to be implemented: it tranfsers all renatblables from one customer to another one and is left 
+	 * here to demonstrate the meaning of a transaction only.
+	 * 
+	 * @param rentable1
+	 * @param kunde1
+	 * @param kunde2
+	 * @param date
+	 * @return
+	 * @throws ServiceException
+	 */
 	public Rent[] transferRentablesFromOneCustomerToOther(List<Rentable> rentable1, Kunde kunde1, Kunde kunde2, Date date) throws ServiceException {
 		Rent[] affectedRents = new Rent[2];
 
@@ -48,12 +60,12 @@ public class RentDBService {
 		return em.find(Rent.class, id);
 	}
 		
-	public List<Rent> findBy(Kunde kunde, java.util.Date ofDate) throws ServiceException {
-
-		Query findRantByKundeAndDate = em.createQuery(" from Rent r where kunde : k and rentedOn : ro ").setParameter(1, kunde).setParameter(2, ofDate);
-		return findRantByKundeAndDate.getResultList();
-	}
-	
+	/**
+	 * loads all rentables that belong to a particular rent
+	 * 
+	 * @param rent
+	 * @return
+	 */
 	public List <Rentable> getRentables(Rent rent) {
 		
 		List <Rentable> rentablesResult = new ArrayList <Rentable> ();
@@ -70,6 +82,14 @@ public class RentDBService {
 	}
 	
 	
+	/**
+	 * gets the total number of rents corresponding to the filetrs crietaria.
+	 * If custId is present, filters additionally by custId
+	 * 
+	 * @param filters
+	 * @param custId
+	 * @return
+	 */
 	public int getRentsCount( Map<String, Object> filters, Long custId) {
 
 		if (custId !=null){
@@ -86,6 +106,17 @@ public class RentDBService {
 
 	
 	
+	/**
+	 * loads a page of sorted rents according to the sortField / sortOrder that match the filters and custId, if present
+	 * 
+	 * @param first
+	 * @param pageSize
+	 * @param sortField
+	 * @param sortOrder
+	 * @param filters
+	 * @param custId
+	 * @return
+	 */
 	public List<Rent> lazyLoadRents(int first, int pageSize, String sortField, SortOrder sortOrder,
 			Map<String, Object> filters, Long custId) {
 		
