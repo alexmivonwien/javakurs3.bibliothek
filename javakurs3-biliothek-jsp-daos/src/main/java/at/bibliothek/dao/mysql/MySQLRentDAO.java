@@ -32,7 +32,7 @@ public class MySQLRentDAO extends AbstractDatabaseDAO implements RentDAO {
 	public static final String COLUMN_RENTED_ON = "rentedOn";
 	public static final String COLUMN_RENTED_TILL = "rentedTill";
 	public static final String COLUMN_BETRAG = "billAmount";
-	public static final String COLUMN_COMPLETED = "completed";
+	public static final String COLUMN_COMPLETED = "abgeschlossen";
 	public static final String COLUMN_CUSTOMER_ID = "kunde_id";
 
 	public final static String RENT_EAGER_SELECT = " select r." + COLUMN_CASH_RECIEPT_ID + ", r." + COLUMN_RENTED_ON + ", r."

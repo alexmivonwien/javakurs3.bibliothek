@@ -48,7 +48,7 @@ public class Rent implements Serializable{
 	@Column
 	private String kassaZettelNummer;
 	
-	
+	@Column
 	private Boolean abgeschlossen;
 	
 	public long getId() {
