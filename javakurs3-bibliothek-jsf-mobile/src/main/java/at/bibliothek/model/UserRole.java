@@ -6,7 +6,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "user_role", schema = "bibliothek")
+@Table (name = "user_role")
 @IdClass(UserRoleId.class)
 public class UserRole {
 

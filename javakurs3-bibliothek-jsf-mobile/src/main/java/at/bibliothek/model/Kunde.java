@@ -25,7 +25,7 @@ public abstract class Kunde {
 	@Column
 	protected String vorname;
 	
-	@Column
+	@Column (name = "adress")
 	protected String adresse;
 	
 	

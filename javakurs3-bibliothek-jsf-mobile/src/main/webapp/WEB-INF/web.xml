@@ -9,6 +9,15 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 		<param-name>primefaces.CLIENT_SIDE_VALIDATION</param-name>
 		<param-value>true</param-value>
 	</context-param>
+<!--  @see https://dzone.com/articles/tuning-and-configuring-java-server-facesjsf-web-ap  -->	
+   <context-param>
+          <param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
+          <param-value>true</param-value>
+   </context-param>
+   <context-param>
+          <param-name>facelets.DEVELOPMENT</param-name>
+          <param-value>true</param-value>
+   </context-param>
 	
 	<!-- JSF mapping -->
 	<servlet>

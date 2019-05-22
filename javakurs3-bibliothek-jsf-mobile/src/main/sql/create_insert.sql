@@ -1,15 +1,4 @@
 
--- create database bibliothek;
-
--- create user bibl identified by 'bibl';
-
--- use bibliothek;
-
--- GRANT ALL ON bibliothek.* TO 'bibl'@'%';
-
--- grant all privileges on bibliothek.* to bibl@localhost identified by 'bibl';
--- FLUSH PRIVILEGES;
-
 use bibliothek;
 
 drop table if exists rent_rentable;
@@ -28,6 +17,7 @@ drop table if exists user;
 create table user (
 	id int(11),
 	username varchar (255),
+	email varchar (255),
 	password varchar (255),
 	primary key (id)
 );
@@ -89,6 +79,7 @@ CREATE TABLE if not exists rentable
 	titel varchar(255) not null,
 	author varchar(255),
 	isbn varchar(255),
+    betriebssystem varchar(255),
 	age tinyint(3),
 	rentable_selector char (1),
 	constraint PK primary key  (id)
@@ -100,7 +91,7 @@ CREATE TABLE if not exists rent
 	id int not null AUTO_INCREMENT,
 	kassaZettelNummer varchar(255) not null unique,
 	kunde_id int not null,
-	completed TINYINT(1), -- A value of zero is considered false. Non-zero values are considered true: http://stackoverflow.com/questions/289727/which-mysql-datatype-to-use-for-storing-boolean-values
+	abgeschlossen TINYINT(1), -- A value of zero is considered false. Non-zero values are considered true: http://stackoverflow.com/questions/289727/which-mysql-datatype-to-use-for-storing-boolean-values
 	rentedOn date not null, -- http://dev.mysql.com/doc/refman/5.7/en/datetime.html
 	rentedTill date,
 	billAmount DECIMAL(5,2), -- http://dev.mysql.com/doc/refman/5.7/en/fixed-point-types.html
@@ -130,12 +121,6 @@ create table if not exists rent_rentable_history (
 );
 
 
-ALTER TABLE kunde ENGINE = InnoDB; -- http://dev.mysql.com/doc/refman/5.7/en/converting-tables-to-innodb.html
-ALTER TABLE rentable ENGINE = InnoDB; -- http://dev.mysql.com/doc/refman/5.7/en/converting-tables-to-innodb.html
-ALTER TABLE rent ENGINE = InnoDB; -- http://dev.mysql.com/doc/refman/5.7/en/converting-tables-to-innodb.html
-ALTER TABLE rent_rentable ENGINE = InnoDB; -- http://dev.mysql.com/doc/refman/5.7/en/converting-tables-to-innodb.html
-ALTER TABLE rent_rentable_history ENGINE = InnoDB; -- http://dev.mysql.com/doc/refman/5.7/en/converting-tables-to-innodb.html
-
 
 insert into kunde values (1, 'Peter', 'Meier', 'Gudrunstr. 21, 1020 Wien', '1992-11-03', null, 'N');
 insert into kunde values (2, 'Stefan', 'Schmidt', 'Börsegasse. 11, 1010 Wien', '1951-07-12', null, 'N');
@@ -151,9 +136,19 @@ insert into rent (id, kassaZettelNummer, kunde_id , abgeschlossen,rentedOn, rent
 insert into rent (id, kassaZettelNummer, kunde_id , abgeschlossen,rentedOn, rentedTill, billAmount) values (2, '#KZKB 00090008913', 2, 0, '2017-01-01', '2017-01-14', 6.60);
 insert into rent (id, kassaZettelNummer, kunde_id , abgeschlossen,rentedOn, rentedTill, billAmount) values (3, '#KZKB 00090008914', 1, 1, '2016-10-20', '2016-11-03', 19.60);
 
-insert into rent_rentable values (1,1);
-insert into rent_rentable values (3,2);
+insert into rent_rentable values (1,1,1);
+insert into rent_rentable values (2,3,2);
+insert into rent_rentable values (3,3,3);
 
 SET SQL_SAFE_UPDATES = 1; 
+
+
+ALTER TABLE kunde ENGINE = InnoDB; -- http://dev.mysql.com/doc/refman/5.7/en/converting-tables-to-innodb.html
+ALTER TABLE rentable ENGINE = InnoDB; -- http://dev.mysql.com/doc/refman/5.7/en/converting-tables-to-innodb.html
+ALTER TABLE rent ENGINE = InnoDB; -- http://dev.mysql.com/doc/refman/5.7/en/converting-tables-to-innodb.html
+ALTER TABLE rent_rentable ENGINE = InnoDB; -- http://dev.mysql.com/doc/refman/5.7/en/converting-tables-to-innodb.html
+ALTER TABLE rent_rentable_history ENGINE = InnoDB; -- http://dev.mysql.com/doc/refman/5.7/en/converting-tables-to-innodb.html
+
+
 
 commit;
