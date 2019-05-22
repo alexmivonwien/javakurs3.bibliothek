@@ -14,7 +14,12 @@ var fileList = []; // an array of objects representing all the files in the HTML
 function dateiauswahl(evt) {
 	evt.stopPropagation();
 	evt.preventDefault();
-	var gewaehlteDateien = evt.dataTransfer.files;
+	var gewaehlteDateien = null;
+	if (evt.dataTransfer){
+		gewaehlteDateien = evt.dataTransfer.files;
+	} else {
+		gewaehlteDateien = evt.target.files; // https://stackoverflow.com/questions/15201071/how-to-get-full-path-of-selected-file-on-change-of-input-type-file-using-jav
+	}
 	// FileList Objekt
 	var output = [];
 	var selectBox = document.getElementById('flist');
@@ -33,9 +38,10 @@ function dateiauswahl(evt) {
 }
 
 function addArrayElement(output, f) {
+	var lastModifiedDate = (f.lastModifiedDate ? f.lastModifiedDate
+					.toLocaleDateString() : ""); // Mozilla Bug
 	output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a',
-			') - ', f.size, ' bytes, last modified: ', f.lastModifiedDate
-					.toLocaleDateString(), '</li>');
+			') - ', f.size, ' bytes, last modified: ', lastModifiedDate, '</li>');
 }
 
 function printFileDetails(output) {
@@ -85,6 +91,8 @@ function init() {
 	var dropZone = document.getElementById('dropzone');
 	dropZone.addEventListener('dragover', handleDragOver, false);
 	dropZone.addEventListener('drop', dateiauswahl, false);
+	var fileInput = document.getElementById('fileInput');
+	fileInput.addEventListener('change', dateiauswahl, false);
 }
 
 
