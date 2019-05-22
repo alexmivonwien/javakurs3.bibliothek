@@ -66,10 +66,7 @@ public class UserService {
 		
 		for (Role role : userRoles){
 			UserRole userRole = new UserRole();
-			userRole.setUsername(user.getUsername());
 			userRole.setUser_id(user.getId());
-			
-			userRole.setRole(role.getName());
 			userRole.setRole_id(role.getId());
 			
 			this.em.persist(userRole);
