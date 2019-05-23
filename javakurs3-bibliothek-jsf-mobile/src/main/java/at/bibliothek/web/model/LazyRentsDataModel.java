@@ -42,7 +42,7 @@ public class LazyRentsDataModel extends LazyDataModel<Rent> {
 			Map<String, Object> filters) {
 
 		List<Rent> result = this.rentDBService.lazyLoadRents(first, pageSize, sortField, sortOrder, filters, custId);
-		int nUmberOfEntries = this.rentDBService.getRentsCount(filters, custId);
+		int nUmberOfEntries = (int)this.rentDBService.getRentsCount(filters, custId);
 
 		// rowCount
 		this.setRowCount(nUmberOfEntries);

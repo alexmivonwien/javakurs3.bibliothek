@@ -25,7 +25,7 @@ public class NatuerlichePerson extends Kunde {
 	@Column
 	private String nachname;
 	
-	@Column
+	@Column (name= "birthDate")
 	private Date gebDatum;
 	
 	public NatuerlichePerson(){

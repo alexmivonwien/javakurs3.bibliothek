@@ -67,20 +67,20 @@ public class KundeDBService {
 	 * @param filters
 	 * @return
 	 */
-	public int getKundeCount(Map<String, Object> filters) {
+	public long getKundeCount(Map<String, Object> filters) {
 
-		List<Integer> result = new ArrayList<>();
+		List<Long> result = new ArrayList<>();
 
 		LoadKundeParametersHelper kundeParametersHelper = new LoadKundeParametersHelper();
 		kundeParametersHelper.setFilters(filters);
 
-		String QUERY_BEGIN = " select k from Kunde k ";
+		String QUERY_BEGIN = " select count (*) from Kunde k ";
 
 		if (kundeParametersHelper.getFilters().size() > 0) {
 			QUERY_BEGIN += kundeParametersHelper.addFiltersToQuery();
 		}
 		Query emQuery = em.createQuery(QUERY_BEGIN);
-		result = (List<Integer>) emQuery.getResultList();
+		result = (List<Long>) emQuery.getResultList();
 
 		return result.size() > 0 ? result.get(0) : 0;
 

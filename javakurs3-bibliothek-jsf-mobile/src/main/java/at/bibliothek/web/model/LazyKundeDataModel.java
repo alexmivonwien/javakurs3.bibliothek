@@ -42,7 +42,7 @@ public class LazyKundeDataModel extends LazyDataModel<Kunde> {
 
 		
 		List result = this.kundeDBService.load(first, pageSize, sortField, sortOrder, filters);
-		int kundenCount = this.kundeDBService.getKundeCount(filters);
+		int kundenCount = (int)this.kundeDBService.getKundeCount(filters);
 
 		// rowCount
 		this.setRowCount(kundenCount);
