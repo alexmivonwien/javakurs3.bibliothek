@@ -25,7 +25,7 @@ https://www.tutorialspoint.com/jsp/jsp_expression_language.htm
 	<br />
 	<h2>Create a new customer</h2>
 	<br />
-	<form id = "new_customer_form" method = "post" action="/bibliothek/customers.jsp">
+	<form id = "new_customer_form" method = "post" action="/javakurs3-biliothek-jsp-daos/customers.jsp">
 		<table>	
 		 <tr>
 			  <td>Kunde Typ: </td>
@@ -58,8 +58,8 @@ https://www.tutorialspoint.com/jsp/jsp_expression_language.htm
 			     <td><input name = "steuerNummer" type = "number" required="required" value = "${newCustomerBean.steuerNummer}"/></td>
 			  </tr>
 			  <tr >
-			    <td> <button type = "reset" value ="Abbrechen"> </button> </td>
-			    <td> <input value = "Eingeben" type = "submit"/></td>
+			    <td> <button type = "reset" value ="Abbrechen">Abbrechen</button> </td>
+			    <td> <input type = "submit" value = "Kunde anlegen" /></td>
 			  </tr>
 		</table>	
 	</form>

@@ -5,6 +5,14 @@ function hideUndideFields() {
 	var firstTwoRowsVidible = (kundeTyp == "1" || kundeTyp == "2") ? "visible"
 			: "hidden";
 	document.getElementById("vorNameRowId").style.visibility = firstTwoRowsVidible;
+	if (firstTwoRowsVidible == "visible"){
+		if (kundeTyp == "2"){
+			document.getElementById("vorNameRowId").firstElementChild.innerHTML = "Name";
+		} else if (kundeTyp == "1"){
+			document.getElementById("vorNameRowId").firstElementChild.innerHTML = "Vorname";
+		}
+	}
+	
 	document.getElementById("adresseId").style.visibility = firstTwoRowsVidible;
 
 	var restOfFieldsVidible = kundeTyp == "1" ? "visible" : "hidden";
